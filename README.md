@@ -1,4 +1,4 @@
-# Redis and Pinot (SQL) Geospatial Search
+# Redis and Pinot Geospatial Search
 
 ## Contents
 1.  [Summary](#summary)
