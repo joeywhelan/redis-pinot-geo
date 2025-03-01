@@ -1,0 +1,31 @@
+{
+  "primaryKeyColumns": [
+    "uuid"
+  ],
+  "metricFieldSpecs": [
+  ],
+  "dateTimeFieldSpecs": [
+  ],
+  "dimensionFieldSpecs": [
+    {
+      "notNull": true,
+      "dataType": "STRING",
+      "name": "uuid",
+      "fieldType": "DIMENSION"
+    },
+    {
+      "notNull": false,
+      "dataType": "BYTES",
+      "name": "point_h3",
+      "fieldType": "DIMENSION"
+    },
+    {
+      "notNull": false,
+      "dataType": "LONG",
+      "name": "dob",
+      "fieldType": "DIMENSION"
+    }
+  ],
+  "schemaName": "locations",
+  "enableColumnBasedNullHandling": false
+}

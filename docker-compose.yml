@@ -1,0 +1,105 @@
+networks:
+  pinot-net:
+    name: pinot-net
+    driver: bridge
+  redis-net:
+    name: redis-net
+    driver: bridge
+
+services:
+  re1:
+    image: redislabs/redis:latest
+    container_name: re1
+    restart: unless-stopped
+    tty: true
+    cap_add: 
+      - sys_resource
+    ports:
+      - 12000:12000
+      - 8443:8443
+      - 9443:9443
+    networks:
+      - redis-net
+  pinot-zookeeper:
+    image: zookeeper:latest
+    container_name: "pinot-zookeeper"
+    restart: unless-stopped
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - pinot-net
+    healthcheck:
+      test: ["CMD", "zkServer.sh", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+  pinot-controller:
+    image: apachepinot/pinot:latest
+    command: "StartController -zkAddress pinot-zookeeper:2181"
+    container_name: "pinot-controller"
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    environment:
+      JAVA_OPTS: "-Dplugins.dir=/opt/pinot/plugins -Xms1G -Xmx4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-controller.log"
+    depends_on:
+      pinot-zookeeper:
+        condition: service_healthy
+    networks:
+      - pinot-net
+    volumes:
+      - $PWD/data:/tmp/pinot/data
+      - $PWD/pinot:/tmp/pinot/config
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+  pinot-broker:
+    image: apachepinot/pinot:latest
+    command: "StartBroker -zkAddress pinot-zookeeper:2181"
+    container_name: "pinot-broker"
+    restart: unless-stopped
+    ports:
+      - "8099:8099"
+    environment:
+      JAVA_OPTS: "-Dplugins.dir=/opt/pinot/plugins -Xms4G -Xmx4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-broker.log"
+    depends_on:
+      pinot-controller:
+        condition: service_healthy
+    networks:
+      - pinot-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8099/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+  pinot-server:
+    image: apachepinot/pinot:latest
+    command: "StartServer -zkAddress pinot-zookeeper:2181"
+    container_name: "pinot-server"
+    restart: unless-stopped
+    ports:
+      - "8098:8098"
+    environment:
+      JAVA_OPTS: "-Dplugins.dir=/opt/pinot/plugins -Xms4G -Xmx16G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xloggc:gc-pinot-server.log"
+    depends_on:
+      pinot-broker:
+        condition: service_healthy
+    networks:
+      - pinot-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8097/health/readiness || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+

@@ -1,0 +1,1 @@
+{"sql": "SELECT COUNT(*) AS CO_Total FROM locations WHERE ST_Within(point_h3,toSphericalGeography(ST_GeomFromText('POLYGON((-109.0448 37.0004,-102.0424 36.9949,-102.0534 41.0006,-109.0489 40.9996,-109.0448 37.0004,-109.0448 37.0004))'))) IS True"}

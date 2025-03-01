@@ -1,0 +1,1 @@
+{"sql": "SELECT COUNT(*) AS Count FROM locations"}

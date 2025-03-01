@@ -1,0 +1,1 @@
+{"sql": "SELECT uuid,dob,STDistance(point_h3,toSphericalGeography(ST_GeomFromText('POINT (-105.0810 38.9922)'))) / 1609.344 AS miles FROM locations WHERE (dob = 2010) ORDER BY miles ASC LIMIT 3"}
