@@ -13,7 +13,7 @@
 This is a Docker-based deployment of Redis and Apache Pinot.  It includes a notebook with equivalent geospatial queries utilizing the Redis Query Engine (RQE) syntax and SQL syntax with Apache Pinot OSS.
 
 ## Architecture <a name="architecture"></a>
-![architecture]()  
+![architecture](https://docs.google.com/drawings/d/e/2PACX-1vSx2JFAePUvUmBzbuMA6xmqPWWAySxqQ53a5z33xu5qqwZhxvkeAsW5LiW9-3WsSZ0QwIXyJ32ub7V0/pub?w=822&h=586)  
 
 ## Features <a name="features"></a>
 - Builds a Redis and Apache Pinot architecture in Docker:  1-node, 1-shard Redis Software cluster, 3-node, 1-segment Apache Pinot OSS cluster.
