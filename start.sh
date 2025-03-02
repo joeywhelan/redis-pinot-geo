@@ -6,6 +6,8 @@ curl -s -o /dev/null --retry 5 --retry-all-errors --retry-delay 3 -f -k -u "redi
 
 echo -e "\n*** Build Redis Cluster ***"
 docker exec -it re1 /opt/redislabs/bin/rladmin cluster create name cluster.local username redis@redis.com password redis
+docker exec -it re2 /opt/redislabs/bin/rladmin cluster join nodes 192.168.20.2 username redis@redis.com password redis
+docker exec -it re3 /opt/redislabs/bin/rladmin cluster join nodes 192.168.20.2 username redis@redis.com password redis
 sleep 1
 
 echo -e "\n*** Build Target Redis DB ***"

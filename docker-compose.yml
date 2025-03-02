@@ -5,6 +5,10 @@ networks:
   redis-net:
     name: redis-net
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.20.0/24
 
 services:
   re1:
@@ -19,7 +23,28 @@ services:
       - 8443:8443
       - 9443:9443
     networks:
-      - redis-net
+      redis-net:
+        ipv4_address: 192.168.20.2
+  re2:
+    image: redislabs/redis:latest
+    container_name: re2
+    restart: unless-stopped
+    tty: true
+    cap_add: 
+      - sys_resource
+    networks:
+      redis-net:
+        ipv4_address: 192.168.20.3
+  re3:
+    image: redislabs/redis:latest
+    container_name: re3
+    restart: unless-stopped
+    tty: true
+    cap_add: 
+      - sys_resource
+    networks:
+      redis-net:
+        ipv4_address: 192.168.20.4
   pinot-zookeeper:
     image: zookeeper:latest
     container_name: "pinot-zookeeper"
