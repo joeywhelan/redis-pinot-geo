@@ -51,7 +51,7 @@ pip install faker shapely
 ```
 src/geodemo.ipynb
 ```
-### Docker Containers Stop
+### Docker Containers Shutdown
 ```bash
 ./stop.sh
 ```
