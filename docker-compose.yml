@@ -25,6 +25,7 @@ services:
     networks:
       redis-net:
         ipv4_address: 192.168.20.2
+
   re2:
     image: redislabs/redis:latest
     container_name: re2
@@ -35,6 +36,7 @@ services:
     networks:
       redis-net:
         ipv4_address: 192.168.20.3
+ 
   re3:
     image: redislabs/redis:latest
     container_name: re3
@@ -45,6 +47,7 @@ services:
     networks:
       redis-net:
         ipv4_address: 192.168.20.4
+ 
   pinot-zookeeper:
     image: zookeeper:latest
     container_name: "pinot-zookeeper"
@@ -62,6 +65,7 @@ services:
       timeout: 10s
       retries: 5
       start_period: 10s
+ 
   pinot-controller:
     image: apachepinot/pinot:latest
     command: "StartController -zkAddress pinot-zookeeper:2181"
