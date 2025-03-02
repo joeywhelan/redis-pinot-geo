@@ -28,6 +28,7 @@ This is a Docker-based deployment of Redis and Apache Pinot.  It includes a note
 
 
 ## Prerequisites <a name="prerequisites"></a>
+- Ubuntu 22 or higher
 - Docker
 - Docker Compose
 - python3
