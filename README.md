@@ -16,7 +16,7 @@ This is a Docker-based deployment of Redis and Apache Pinot.  It includes a note
 ![architecture](https://docs.google.com/drawings/d/e/2PACX-1vSx2JFAePUvUmBzbuMA6xmqPWWAySxqQ53a5z33xu5qqwZhxvkeAsW5LiW9-3WsSZ0QwIXyJ32ub7V0/pub?w=822&h=586)  
 
 ## Features <a name="features"></a>
-- Builds a Redis and Apache Pinot architecture in Docker:  3-node, 1-shard Redis Software cluster, 3-node, 1-segment Apache Pinot OSS cluster.
+- Builds a Redis and Apache Pinot architecture in Docker:  3-node, 1-shard Redis Software cluster, 4-node, 1-segment Apache Pinot OSS cluster.
 - Generates a 1 million-record JSON geospatial data set covering the US
 - Loads those records into Redis and Pinot with no-code tools
     - Redis
