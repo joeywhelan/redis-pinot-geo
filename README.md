@@ -38,7 +38,7 @@ This is a Docker-based deployment of Redis and Apache Pinot.  It includes a note
 
 ## Installation <a name="installation"></a>
 ```bash
-git clone https://github.com/joeywhelan/redis-pinot-geo.git && cd redis-pinot-geo
+git clone git@github.com:joeywhelan/redis-pinot-geo.git && cd redis-pinot-geo
 pip install faker shapely
 ```
 
